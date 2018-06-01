@@ -4,7 +4,7 @@
 			<v-flex xs12 sm6 offset-sm3>
 				<h1 class="text--secondary mb-3">Новая задача</h1>
 				<v-form v-model="valid" ref="form" validation class="mb-3">
-					<v-text-field 
+					<v-text-field
 					name="title" 
 					label="Новая задача" 
 					type="text"

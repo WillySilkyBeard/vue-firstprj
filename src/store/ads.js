@@ -1,4 +1,5 @@
 import * as fb from 'firebase'
+import VueResource from 'vue-resource'
 
 class Ad {
   constructor (title, description, ownerId, imageSrc = '', promo = false, id = null) {
@@ -14,9 +15,13 @@ class Ad {
 export default {
   state: {
     ads: [],
-    imageSrc: ''
+    imageSrc: '',
+    dataform: {}
   },
   mutations: {
+    createAjaxAct (state, payload) { // ???????? nado ili net
+      state.dataform.push(payload)
+    },
     createAd (state, payload) {
       state.ads.push(payload)
     },
@@ -36,6 +41,28 @@ export default {
     }
   },
   actions: {
+    async createAjaxAct ({commit, getters}, payload, http) {
+      console.log(payload)
+      console.log('payload')
+      commit('clearError')
+      try {
+        this.$http.post("includes/feedback.php?dataform=", payload).then(
+        response => {
+          // ok callback
+          console.log(response);
+          console.log('-----------');
+        },
+        response => {
+          // error callback
+          console.log("EEEEERROORR!!!");
+        }
+      )
+      } catch (error) {
+        commit('setError', error.message)
+        throw error
+      }
+      
+    },
     async createAd ({commit, getters}, payload) {
       commit('clearError')
       commit('setLoading', true)

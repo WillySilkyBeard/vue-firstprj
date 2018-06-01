@@ -1,9 +1,9 @@
 <template>
+<div> 
     <v-container>
         <v-layout row v-if="!loading && myAds.length !==0">
             <v-flex xs12 sm6 offset-sm3>
                 <h1 class="text--secondary mb-3">AdList</h1>
-
                 <v-card 
                 class="elevation-10 mb-3"
                 v-for="ad in myAds"
@@ -50,18 +50,93 @@
             </v-flex>
         </v-layout>
     </v-container>
+
+<v-layout>
+			<v-flex xs12 sm6 offset-sm3>
+<v-form ref="ajaxForm">
+      <v-text-field 
+      label="login"
+      v-model="dataform.login"
+      type="text"
+      name="login"
+      ></v-text-field>
+      {{ dataform.login}}
+      {{ dataform.password}}
+      {{ dataform.email}}
+      <v-text-field
+      label="password"
+      v-model="dataform.password"
+      type="password"
+      name="password"
+      ></v-text-field>
+      <v-text-field 
+      label="E-mail:"
+      v-model="dataform.email"
+      type="e-mail"
+      name="e-mail"
+      ></v-text-field>
+    <v-btn 
+    color="blue"
+    class="white--text"
+    @click="register"
+    >Зарегистрироваться</v-btn>
+  </v-form>
+  </v-flex>
+    </v-layout>
+  </div>
+
 </template>
 
 <script>
 export default {
-    computed: {
-        myAds () {
-            return this.$store.getters.myAds
-        },
-        loading () {
-            return this.$store.getters.loading
-        }
+  data() {
+    return {
+      dataform: {
+        login: "",
+        password: "",
+        email: ""
+      }
     }
-}
+  },
+  methods: {
+    // createAjax() {
+    //   const dataform = {
+    //       login: this.dataform.login,
+    //       password: this.dataform.password,
+    //       email: this.dataform.email
+    //     }
+
+    //   this.$store.dispatch("createAjaxAct", dataform)
+    //       .then(() => {
+    //         console.log('вызвался диспатч createAjaxAct')
+    //         console.log(dataform)
+    //       })
+    //       .catch(() => {
+    //         console.log('404')
+    //       })
+    //   },
+    register() {
+      console.log(this.dataform);
+      this.$http.post("includes/feedback", this.dataform).then(
+        response => {
+          // ok callback
+          console.log(response);
+        },
+        response => {
+          // error callback
+          console.log("EEEEERROORR!!!");
+        }
+      )
+    }
+  },
+  computed: {
+    myAds() {
+      return this.$store.getters.myAds;
+    },
+    loading() {
+      return this.$store.getters.loading;
+    }
+  }
+};
 </script>
 

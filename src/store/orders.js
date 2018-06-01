@@ -39,7 +39,7 @@ export default {
 
       try {
         const fbVal = await fb.database().ref(`/users/${getters.user.id}/orders`).once('value')
-        const orders = fbVal.val()
+        const orders = fbVal.val() // тут куйня ошибки через-раз кидает
         console.log(orders)
         console.log('-------------- order.js need del line 43,44')
         Object.keys(orders).forEach(key => {
