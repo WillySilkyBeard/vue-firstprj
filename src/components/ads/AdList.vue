@@ -78,7 +78,7 @@
     <v-btn 
     color="blue"
     class="white--text"
-    @click="register"
+    @click="createAjax"
     >Зарегистрироваться</v-btn>
   </v-form>
   </v-flex>
@@ -92,35 +92,39 @@ export default {
   data() {
     return {
       dataform: {
-        login: "",
-        password: "",
-        email: ""
+        login: "dos",
+        password: "111",
+        email: "dd@dd.ru"
       }
     }
   },
   methods: {
-    // createAjax() {
-    //   const dataform = {
-    //       login: this.dataform.login,
-    //       password: this.dataform.password,
-    //       email: this.dataform.email
-    //     }
+    createAjax() {
+      const dataform = {
+          login: this.dataform.login,
+          password: this.dataform.password,
+          email: this.dataform.email
+        }
 
-    //   this.$store.dispatch("createAjaxAct", dataform)
-    //       .then(() => {
-    //         console.log('вызвался диспатч createAjaxAct')
-    //         console.log(dataform)
-    //       })
-    //       .catch(() => {
-    //         console.log('404')
-    //       })
-    //   },
+      this.$store.dispatch("createAjaxAct", this.dataform)
+          .then(() => {
+          })
+          .catch(() => {
+            console.log('404')
+          })
+      },
     register() {
       console.log(this.dataform);
-      this.$http.post("includes/feedback", this.dataform).then(
+      console.log('dataform');
+      this.$http.post("feedback.php", this.dataform).then(
         response => {
           // ok callback
-          console.log(response);
+          console.log('----ok----');
+          response.json().then(
+            response => {
+              console.log(response);
+            }
+          )
         },
         response => {
           // error callback

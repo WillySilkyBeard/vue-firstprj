@@ -11,9 +11,9 @@ import 'vuetify/dist/vuetify.min.css'
 Vue.use(Vuetify)
 // vue-resource глобальная настройка
 Vue.use(VueResource)
-//Vue.http.options.root = 'http://localhost:8080/';
-Vue.http.options.emulateHTTP = true;
+Vue.http.options.root = 'http://test.it-centr.pro/api/';
 Vue.http.options.emulateJSON = true;
+Vue.http.options.emulateHTTP = true;
 Vue.component('app-buy-modal', BuyModalComponent)
 
 Vue.config.productionTip = false

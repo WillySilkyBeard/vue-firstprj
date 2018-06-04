@@ -1,5 +1,5 @@
 import * as fb from 'firebase'
-import VueResource from 'vue-resource'
+import Vue from 'vue'
 
 class Ad {
   constructor (title, description, ownerId, imageSrc = '', promo = false, id = null) {
@@ -41,16 +41,13 @@ export default {
     }
   },
   actions: {
-    async createAjaxAct ({commit, getters}, payload, http) {
-      console.log(payload)
-      console.log('payload')
+    async createAjaxAct ({commit, getters}, payload) {
       commit('clearError')
       try {
-        this.$http.post("includes/feedback.php?dataform=", payload).then(
+        Vue.http.post("feedback.php", payload).then(
         response => {
           // ok callback
-          console.log(response);
-          console.log('-----------');
+          commit('setError', response.bodyText)
         },
         response => {
           // error callback
